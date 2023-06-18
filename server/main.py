@@ -2,10 +2,11 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from dal.dalSql import create_connection
 from helpers.jwtFile import decode_token
-from logic.userLogic import registerFunction,loginFunction
-from logic.todoLogic import addTodo,getTodos,deleteTodo
+from logic.userLogic import registerFunction, loginFunction
+from logic.todoLogic import addTodo, getTodos, deleteTodo
 from dotenv import load_dotenv
 import os
+
 load_dotenv()
 
 db_host = os.environ.get("DB_HOST")

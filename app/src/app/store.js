@@ -3,11 +3,17 @@ import jwtDecode from "jwt-decode";
 
 const getT = localStorage.getItem("vuetoken");
 
+// Initialize the state object with the values from the decoded token if it exists
+const initialState = {
+  token: getT || "",
+  isLogged: Boolean(getT),
+  sub: getT ? jwtDecode(getT).sub : "",
+  username: getT ? jwtDecode(getT).username : "",
+  email: getT ? jwtDecode(getT).email : "",
+};
+
 export default createStore({
-  state: {
-    token: "",
-    isLogged: Boolean(getT),
-  },
+  state: { ...initialState },
 
   mutations: {
     setToken(state, token) {
@@ -16,6 +22,9 @@ export default createStore({
     removeToken(state) {
       state.token = "";
       state.isLogged = false;
+      state.sub = "";
+      state.username = "";
+      state.email = "";
     },
   },
 
@@ -23,8 +32,8 @@ export default createStore({
     saveToken({ commit }, token) {
       commit("setToken", token);
       const userDetails = jwtDecode(token);
-      console.log(userDetails)
       localStorage.setItem("vuetoken", token);
+      commit("setUserDetails", userDetails);
     },
     logout({ commit }) {
       commit("removeToken");
@@ -32,12 +41,22 @@ export default createStore({
       location.reload();
     },
   },
+
   getters: {
     getToken: (state) => {
       return state.token;
     },
     getIsLogged: (state) => {
       return state.isLogged;
+    },
+    getSub: (state) => {
+      return state.sub;
+    },
+    getUsername: (state) => {
+      return state.username;
+    },
+    getEmail: (state) => {
+      return state.email;
     },
   },
 });

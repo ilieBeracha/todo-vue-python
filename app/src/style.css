@@ -17,9 +17,9 @@
 a {
   font-weight: 500;
   color: #6101EA;
-  /* text-decoration: inherit; */
+  text-decoration: inherit;
   background-color: transparent;
-  font-size: 12px;
+  font-size: 13px;
 }
 a:hover {
   color: #6101EA;

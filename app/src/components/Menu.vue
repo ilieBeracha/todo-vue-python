@@ -9,7 +9,10 @@
 
             <v-card min-width="300">
                 <v-list>
-                    <v-list-item :title="username" subtitle="Founder of Vuetify">
+                    <v-avatar color="red">
+                        <span class="text-h5">{{ username.substring(2) }}</span>
+                    </v-avatar>
+                    <v-list-item :title="username" subtitle="Your todos">
                         <template v-slot:append>
                             <v-btn variant="text" :class="fav ? 'text-red' : ''" icon="mdi-heart"
                                 @click="fav = !fav"></v-btn>
@@ -25,7 +28,9 @@
                     </v-list-item>
 
                     <v-list-item>
-                        <button @click="logoutDef">Logout</button>
+                        <v-btn @click="logoutDef" variant="tonal">
+                            Logout
+                        </v-btn>
                     </v-list-item>
                 </v-list>
             </v-card>
@@ -50,6 +55,8 @@ export default {
         };
 
         const username = computed(() => store.getters.getUsername);
+        const id = computed(() => store.getters.getSub);
+        const email = computed(() => store.getters.getEmail);
 
         return {
             fav,
@@ -62,3 +69,12 @@ export default {
     }
 };
 </script>
+
+
+<style scoped>
+.v-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+</style>
