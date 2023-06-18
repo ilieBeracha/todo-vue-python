@@ -1,19 +1,28 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from dalSql import create_connection
-from jwtFile import decode_token
-from userLogic import registerFunction,loginFunction
-from todoLogic import addTodo,getTodos,deleteTodo
+from dal.dalSql import create_connection
+from helpers.jwtFile import decode_token
+from logic.userLogic import registerFunction,loginFunction
+from logic.todoLogic import addTodo,getTodos,deleteTodo
+from dotenv import load_dotenv
+import os
+load_dotenv()
+
+db_host = os.environ.get("DB_HOST")
+db_user = os.environ.get("DB_USER")
+db_password = os.environ.get("DB_PASSWORD")
+db_name = os.environ.get("DB_NAME")
+
 
 app = Flask(__name__)
 CORS(app)
 
-connection = create_connection("localhost", "root", "", "vue-python-test")
+connection = create_connection(db_host, db_user, db_password, db_name)
 
 
 # user
 @app.route("/register", methods=["POST"])
-def registerUser():
+def registerUserDef():
     try:
         data = request.get_json()
         username = data.get("username")
@@ -27,7 +36,7 @@ def registerUser():
 
 
 @app.route("/login", methods=["POST"])
-def loginUser():
+def loginUserDef():
     try:
         data = request.get_json()
         email = data.get("email")
@@ -43,7 +52,7 @@ def loginUser():
 # todos
 
 @app.route("/getTodos",methods=["GET"])
-def getTodosByUserId():
+def getTodosByUserIdDef():
     try:
         auth_header = request.headers['Authorization']
         user_id = decode_token(auth_header)
@@ -70,7 +79,7 @@ def deleteTodoDef():
 
 
 @app.route("/addTodo", methods=["POST"])
-def addTodoRoute():
+def addTodoDef():
     try:
         auth_header = request.headers['Authorization']
         id = decode_token(auth_header)

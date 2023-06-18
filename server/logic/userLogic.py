@@ -1,4 +1,4 @@
-from jwtFile import create_token
+from helpers.jwtFile import create_token
 
 
 def registerFunction(username, email, password, connection):
