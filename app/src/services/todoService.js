@@ -20,7 +20,7 @@ class TodoService {
         },
       }
     );
-    return results.data;
+    return results;
   }
 
   async getTodosByUser(status) {

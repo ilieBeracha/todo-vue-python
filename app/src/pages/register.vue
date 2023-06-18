@@ -15,8 +15,10 @@
 <script setup>
 import { ref } from 'vue';
 import { useStore } from 'vuex';
-
 import { userService } from '../services/userService';
+import { useToast } from 'vue-toast-notification';
+
+const $toast = useToast();
 const username = ref("")
 const email = ref("")
 const password = ref("")
@@ -25,10 +27,13 @@ const store = useStore();
 
 async function registerForm() {
     const res = await userService.registerUser(username.value, email.value, password.value);
-    if(res === 0) return 
-    console.log(res)
-    store.dispatch("saveToken", res);
-    location.reload()
+    if (res === 0) {
+        $toast.error('Error occured')
+        return
+    } else {
+        store.dispatch("saveToken", res);
+        location.reload()
+    }
 }
 
 </script>
@@ -46,12 +51,19 @@ form {
     display: flex;
     flex-direction: column;
     gap: 8px;
+    width: 70%;
 }
 
 input {
     width: 100%;
-    padding: 8px;
+    padding: 6px;
     border-radius: 10px;
     border: 1px solid #ccc;
+}
+
+
+button {
+    background-color: var(--mainColor);
+    color: white;
 }
 </style>

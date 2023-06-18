@@ -14,6 +14,8 @@
 import { ref } from 'vue';
 import { userService } from '../services/userService'
 import { useStore } from 'vuex';
+import {useToast} from 'vue-toast-notification';
+const $toast = useToast();
 
 const store = useStore();
 const email = ref("")
@@ -21,9 +23,9 @@ const password = ref("")
 
 async function loginForm() {
     const res = await userService.loginUser(email.value, password.value);
-    console.log(res)
     if (res === 0 || res === undefined || res === null) {
-        alert("no")
+        $toast.error('Details incorrect');
+
         return
 
     } else {
@@ -39,7 +41,6 @@ async function loginForm() {
     height: 90%;
     display: flex;
     justify-content: center;
-    /* align-items: center; */
 }
 
 form {
@@ -47,12 +48,18 @@ form {
     display: flex;
     flex-direction: column;
     gap: 8px;
+    width: 70%;
 }
 
 input {
     width: 100%;
-    padding: 8px;
+    padding: 6px;
     border-radius: 10px;
     border: 1px solid #ccc;
+}
+
+button{
+    background-color: var(--mainColor);
+    color: white;
 }
 </style>

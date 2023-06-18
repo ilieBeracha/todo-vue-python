@@ -37,7 +37,7 @@ const formattedDate = computed(() => {
     background-color: #f0f0f0;
     border-radius: 8px;
     position: relative;
-    border: 1px solid #6101EA;
+    border: 1px solid var(--mainColor);
 
 }
 
