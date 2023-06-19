@@ -1,8 +1,14 @@
 <template>
     <div class="header">
         <div class="title">
-            <router-link to="/">Home</router-link>
-            <router-link to="/addTodo" v-if="isLogged">Add</router-link>
+            <router-link to="/">
+                <!-- <img :src=Home alt=""> -->
+                Home
+            </router-link>
+            <router-link to="/addTodo" v-if="isLogged">
+                <!-- <img :src=Add alt=""> -->
+                Add
+            </router-link>
         </div>
         <div class="authBtns" v-if="!isLogged">
             <router-link to="/login">Login</router-link>
@@ -17,6 +23,9 @@
 <script setup>
 import store from '../app/store';
 import Menu from './Menu.vue';
+import Home from '../assets/Home.png'
+import Add from '../assets/Add.png'
+
 const isLogged = store.getters.getIsLogged
 const username = store.getters.getUsername;
 console.log(username)
@@ -37,9 +46,22 @@ console.log(username)
 .title{
     display: flex;
     gap: 10px;
+    justify-content: center;
+    align-items: center;
 }
 .authBtns {
     display: flex;
     gap: 20px;
+}
+
+.title img{
+    width:  30px;
+}
+
+a{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 </style>
