@@ -16,6 +16,32 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `labels`
+--
+
+DROP TABLE IF EXISTS `labels`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `labels` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `labelName` varchar(45) DEFAULT NULL,
+  `userId` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `userId_idx` (`userId`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `labels`
+--
+
+LOCK TABLES `labels` WRITE;
+/*!40000 ALTER TABLE `labels` DISABLE KEYS */;
+INSERT INTO `labels` VALUES (1,'new',41),(2,'ilie',41);
+/*!40000 ALTER TABLE `labels` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `todos`
 --
 
@@ -29,10 +55,13 @@ CREATE TABLE `todos` (
   `status` varchar(45) DEFAULT NULL,
   `date` datetime DEFAULT NULL,
   `userId` int DEFAULT NULL,
+  `labelId` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `id_idx` (`userId`),
-  CONSTRAINT `id` FOREIGN KEY (`userId`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `label_id_idx` (`labelId`),
+  CONSTRAINT `id` FOREIGN KEY (`userId`) REFERENCES `users` (`id`),
+  CONSTRAINT `label_id` FOREIGN KEY (`labelId`) REFERENCES `labels` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +70,7 @@ CREATE TABLE `todos` (
 
 LOCK TABLES `todos` WRITE;
 /*!40000 ALTER TABLE `todos` DISABLE KEYS */;
-INSERT INTO `todos` VALUES (13,'12','12','In progress','2023-07-07 00:00:00',41),(14,'123','123','Completed','2023-08-05 00:00:00',41),(20,'ouwbdi','dfbdsbf','Active','2023-07-07 00:00:00',41);
+INSERT INTO `todos` VALUES (42,'new','new','Active','2023-06-29 00:00:00',41,1),(43,'new1','new1','Active','2023-06-22 00:00:00',41,1),(44,'1123123','1231232','Completed','2023-06-16 00:00:00',41,1),(45,'test','test','Active','2023-06-22 00:00:00',41,1),(46,'hello','hello','Active','2023-06-30 00:00:00',41,2);
 /*!40000 ALTER TABLE `todos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -80,4 +109,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-06-18 14:17:01
+-- Dump completed on 2023-06-19 11:49:51

@@ -5,7 +5,7 @@ class TodoService {
     this.token = localStorage.getItem("vuetoken");
   }
 
-  async addTodo(title, description, status, date) {
+  async addTodo(title, description, status, date, label) {
     const results = await axios.post(
       "http://127.0.0.1:5000/addTodo",
       {
@@ -13,6 +13,7 @@ class TodoService {
         description,
         status,
         date,
+        label,
       },
       {
         headers: {

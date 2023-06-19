@@ -9,6 +9,13 @@
             <v-select label="Select" v-model="status" :items="['Active', 'In progress', 'Completed']"></v-select>
             <label for="">Finish date</label>
             <input type="date" v-model="date" required>
+            <div>
+                <label for="">Labels (choose or create)</label>
+                <input type="checkbox" @change="isNewLabel = !isNewLabel">
+            </div>
+            <v-select label="Select" v-if="!isNewLabel" v-model="label" :items="labelNames">
+            </v-select>
+            <input type="text" v-else placeholder="Write new label" v-model="label">
             <button @click.prevent="addTodoDef">Add</button>
 
         </form>
@@ -16,7 +23,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref, computed } from 'vue';
 import { todoService } from '../services/todoService';
 import { useToast } from 'vue-toast-notification';
 const $toast = useToast();
@@ -25,22 +32,33 @@ const title = ref("")
 const description = ref("")
 const status = ref("")
 const date = ref("")
+const isNewLabel = ref(false)
+const labels = ref([])
+const label = ref("")
 
+onMounted(() => {
+    todoService.getTodosByUser("Active").then((res) => {
+        labels.value = res.labels
+    })
+})
+
+const labelNames = computed(() => labels.value.map(label => label.labelName))
 
 async function addTodoDef() {
-    if (title.value === "" || description.value === "" || status.value === "" || date.value === "") {
+    console.log(label)
+    if (title.value === "" || description.value === "" || status.value === "" || date.value === "", label.value === 0) {
         $toast.info('All fields must be completed')
         return
     }
 
-    const res = await todoService.addTodo(title.value, description.value, status.value, date.value);
+    const res = await todoService.addTodo(title.value, description.value, status.value, date.value, label.value);
 
     if (res.status === 200) {
         $toast.success('Todo added')
         title.value = "";
         description.value = "";
-        status.value= "";
-        date.value= "";
+        status.value = "";
+        date.value = "";
     } else {
         $toast.error('Error')
     }
@@ -51,7 +69,7 @@ async function addTodoDef() {
 <style scoped>
 .addTodo {
     width: 100%;
-    height: 70%;
+    height: 80%;
     display: flex;
     justify-content: center;
     align-items: center;

@@ -3,7 +3,7 @@ from flask_cors import CORS
 from dal.dalSql import create_connection
 from helpers.jwtFile import decode_token
 from logic.userLogic import registerFunction, loginFunction
-from logic.todoLogic import addTodo, getTodos, deleteTodo
+from logic.todoLogic import addTodo, getTodos, deleteTodo, getLabelsForUser
 from dotenv import load_dotenv
 import os
 
@@ -58,12 +58,12 @@ def getTodosByUserIdDef():
         auth_header = request.headers['Authorization']
         user_id = decode_token(auth_header)
         status = request.args.get('status')
-        res = getTodos(connection,user_id,status)
-        return res
+        res = getTodos(connection, user_id, status)
+        getLabels = getLabelsForUser(connection, user_id)
+        return jsonify({"todos": res, "labels": getLabels})
     except Exception as e:
         print(f"An error occurred during login: {e}")
-        return "0"
-
+        return jsonify({"error": "An error occurred"})
 
 
 
@@ -84,15 +84,27 @@ def addTodoDef():
     try:
         auth_header = request.headers['Authorization']
         id = decode_token(auth_header)
-        print(id)
         data = request.get_json()
         title = data.get('title')
+        label = data.get('label')
         description = data.get('description')
         status = data.get('status')
         date = data.get('date')
-        res = addTodo(connection, title, description, status, date,id)
+        res = addTodo(connection, title, description, status, date,id,label)
         print(res)
         return jsonify(res)
     except Exception as e:
-        print(f"An error occurred during login: {e}")
-        return {"error": "Failed to add todo"}
+        print(f"An error occurred during getTodos: {e}")
+        return {"error": "Failed to get todo"}
+
+
+# @app.route('/getLabels', methods=["GET"])
+# def getLabelsDef():
+#     try:
+#         auth_header = request.headers['Authorization']
+#         userId = decode_token(auth_header)
+#         res = getLabelsForUser(connection, userId)
+#         return res
+#     except Exception as e:
+#         print(f"An error occurred during getLabels: {e}")
+#         return {"error": "Failed to get labels"}
