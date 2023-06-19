@@ -2,11 +2,11 @@
     <div class="register">
         <form>
             <label for="">Username</label>
-            <input type="text" v-model="username">
+            <input type="text" v-model="username" required>
             <label for="">Email</label>
-            <input type="email" v-model="email">
+            <input type="email" v-model="email" required>
             <label for="">Password</label>
-            <input type="password" v-model="password">
+            <input type="password" v-model="password" required>
             <button @click.prevent="registerForm">Register</button>
         </form>
     </div>
@@ -26,6 +26,10 @@ const store = useStore();
 
 
 async function registerForm() {
+    if(username.value==="" || email.value==="" || password.value==="") {
+        $toast.info("Fill all Fields")
+        return;
+    }
     const res = await userService.registerUser(username.value, email.value, password.value);
     if (res === 0) {
         $toast.error('Error occured')

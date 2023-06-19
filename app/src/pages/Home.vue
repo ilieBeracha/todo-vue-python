@@ -105,6 +105,7 @@ onMounted(() => {
 
 .labelBtn {
   width: max-content;
+  height: max-content;
   font-size: 12px;
   border: 1px solid var(--mainColor);
 }
