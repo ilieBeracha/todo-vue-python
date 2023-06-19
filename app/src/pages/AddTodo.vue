@@ -26,6 +26,7 @@
 import { onMounted, ref, computed } from 'vue';
 import { todoService } from '../services/todoService';
 import { useToast } from 'vue-toast-notification';
+import  router  from '../router/router'
 const $toast = useToast();
 
 const title = ref("")
@@ -59,6 +60,9 @@ async function addTodoDef() {
         description.value = "";
         status.value = "";
         date.value = "";
+        label.value = "";
+        router.push('/home');
+
     } else {
         $toast.error('Error')
     }

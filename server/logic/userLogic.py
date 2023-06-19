@@ -2,14 +2,23 @@ from helpers.jwtFile import create_token
 
 
 def registerFunction(username, email, password, connection):
+    print(1111)
     cursor = connection.cursor()
-    # checkIfEmailIsTaken = f"SELECT * FROM users WHERE email = {email}"
-    query = f"INSERT INTO users (username, email, password) VALUES ('{username}', '{email}', '{password}')"
-    cursor.execute(query)
+    checkIfEmailIsTaken = "SELECT * FROM users WHERE email = %s"
+    cursor.execute(checkIfEmailIsTaken, (email,))
+    result = cursor.fetchall()
+    print(result)  # Print the emailQuery result
+
+    if result:  # Check if result is not empty (user already registered)
+        return {"error": "User already registered with this email."}
+
+    query = "INSERT INTO users (username, email, password) VALUES (%s, %s, %s)"
+    cursor.execute(query, (username, email, password))
     connection.commit()
     last_insert_id = cursor.lastrowid
     token = create_token(last_insert_id, username, email)
     return token
+
 
 
 def loginFunction(email, cursor, password):

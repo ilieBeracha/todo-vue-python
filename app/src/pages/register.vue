@@ -31,10 +31,13 @@ async function registerForm() {
         return;
     }
     const res = await userService.registerUser(username.value, email.value, password.value);
+    
     if (res === 0) {
         $toast.error('Error occured')
         return
-    } else {
+    } else if(res.error){
+        $toast.error(res.error)
+    }else {
         store.dispatch("saveToken", res);
         location.reload()
     }
@@ -58,15 +61,22 @@ form {
     width: 70%;
 }
 
+
+label {
+    font-size: 13px;
+}
+
+
 input {
     width: 100%;
-    padding: 6px;
+    padding: 5px;
     border-radius: 10px;
     border: 1px solid #ccc;
 }
 
 
 button {
+    margin-top: 5px;
     background-color: var(--mainColor);
     color: white;
 }

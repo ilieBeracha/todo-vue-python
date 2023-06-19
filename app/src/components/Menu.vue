@@ -55,8 +55,6 @@ export default {
         };
 
         const username = computed(() => store.getters.getUsername);
-        const id = computed(() => store.getters.getSub);
-        const email = computed(() => store.getters.getEmail);
 
         return {
             fav,
