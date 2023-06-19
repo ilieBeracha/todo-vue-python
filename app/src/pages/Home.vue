@@ -95,7 +95,7 @@ onMounted(() => {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  min-height: 85vh;
+  min-height: 90vh;
 }
 
 .labelBtnDiv {
@@ -113,9 +113,14 @@ onMounted(() => {
 }
 
 
-.clearFiltersBtn{
+.clearFiltersBtn {
   font-size: 12px;
   background-color: var(--mainColor);
   color: white;
+}
+
+
+.v-tabs--density-default {
+  background-color: lightblue;
 }
 </style>

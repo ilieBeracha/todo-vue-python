@@ -32,12 +32,12 @@ const isLogged = store.getters.getIsLogged
 <style scoped>
 .header {
     width: 100%;
-    height: 10%;
+    height: 10vh;
     display: flex;
     justify-content: space-between;
     align-items: center;
     box-sizing: border-box;
-    padding: 0 50px;
+    padding: 0 20px;
 }
 
 .title {

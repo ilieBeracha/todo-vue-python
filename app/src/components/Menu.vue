@@ -7,7 +7,7 @@
                 </p>
             </template>
 
-            <v-card min-width="300">
+            <v-card min-width="250">
                 <v-list>
                     <v-avatar color="red">
                         <span class="text-h5">{{ username.substring(2) }}</span>
