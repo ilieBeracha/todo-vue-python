@@ -101,6 +101,7 @@ onMounted(() => {
   display: flex;
   flex-wrap: wrap;
   gap: 5px;
+  align-items: center;
 }
 
 .labelBtn {

@@ -5,19 +5,22 @@
             <img :src="todoPng" alt="">
         </div>
         <div class="features">
-            <Feature v-for="feat in features" :key="feat" :featureText="feat" />
+            <Feature v-for="feat in features" :key="feat" :featureText="feat.text" :img="feat.img"/>
         </div>
     </div>
 </template>
 
 <script setup>
-import todoPng from '../assets/todo.png'
+import todoPng from '../assets/todoGif.gif'
 import Feature from '../components/Feature.vue';
+import date from '../assets/date.gif'
+import manage from '../assets/manage.gif'
+import async from '../assets/async.gif'
 
 const features = [
-    "Effortlessly manage your daily tasks with our intuitive interface.",
-    "Set custom due dates for each task and never miss a deadline.",
-    "Sync your todo list across all your devices in real-time."
+    { text: "Effortlessly manage your daily tasks with our intuitive interface.", img: manage },
+    { text: "Set custom due dates for each task and never miss a deadline.", img: date },
+    { text: "Sync your todo list across all your devices in real-time.", img: async }
 ];
 </script>
 

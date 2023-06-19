@@ -3,6 +3,7 @@ from helpers.jwtFile import create_token
 
 def registerFunction(username, email, password, connection):
     cursor = connection.cursor()
+    # checkIfEmailIsTaken = f"SELECT * FROM users WHERE email = {email}"
     query = f"INSERT INTO users (username, email, password) VALUES ('{username}', '{email}', '{password}')"
     cursor.execute(query)
     connection.commit()
