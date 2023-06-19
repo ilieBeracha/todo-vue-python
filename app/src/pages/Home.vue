@@ -10,7 +10,7 @@
         <v-container fluid>
           <div class="labelBtnDiv">
             <button @click="filterByLabel(label)" class="labelBtn" v-for="label in labels">{{ label.labelName }}</button>
-            <button @click="clearFilters" v-if="selectedLabel">X</button>
+            <button class="clearFiltersBtn" @click="clearFilters" v-if="selectedLabel">X Clear</button>
           </div>
           <Todo :id="todo.id" :key="todo.id" v-for="todo in todos" :title="todo.title" :description="todo.description"
             :status="todo.status" :date="todo.date" @delete="deleteTodo" />
@@ -20,7 +20,7 @@
         <v-container fluid>
           <div class="labelBtnDiv">
             <button @click="filterByLabel(label)" class="labelBtn" v-for="label in labels">{{ label.labelName }}</button>
-            <button @click="clearFilters" v-if="selectedLabel">X</button>
+            <button class="clearFiltersBtn" @click="clearFilters" v-if="selectedLabel">X Clear</button>
           </div>
           <Todo :id="todo.id" :key="todo.id" v-for="todo in todos" :title="todo.title" :description="todo.description"
             :status="todo.status" :date="todo.date" @delete="deleteTodo" />
@@ -30,7 +30,7 @@
         <v-container fluid>
           <div class="labelBtnDiv">
             <button @click="filterByLabel(label)" class="labelBtn" v-for="label in labels">{{ label.labelName }}</button>
-            <button @click="clearFilters" v-if="selectedLabel">X</button>
+            <button class="clearFiltersBtn" @click="clearFilters" v-if="selectedLabel">X Clear</button>
           </div>
           <Todo :id="todo.id" :key="todo.id" v-for="todo in todos" :title="todo.title" :description="todo.description"
             :status="todo.status" :date="todo.date" @delete="deleteTodo" />
@@ -39,6 +39,8 @@
     </v-window>
   </v-card>
 </template>
+
+
 <script setup>
 import { onMounted, ref, watch } from 'vue';
 import { todoService } from '../services/todoService';
@@ -75,7 +77,6 @@ function clearFilters() {
 }
 
 watch(tab, (newTab) => {
-  console.log(newTab);
   fetchTodosByTab(newTab);
 });
 
@@ -109,5 +110,12 @@ onMounted(() => {
   height: max-content;
   font-size: 12px;
   border: 1px solid var(--mainColor);
+}
+
+
+.clearFiltersBtn{
+  font-size: 12px;
+  background-color: var(--mainColor);
+  color: white;
 }
 </style>

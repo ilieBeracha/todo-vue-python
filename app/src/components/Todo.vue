@@ -2,8 +2,10 @@
     <div class="todo">
         <p class="todo-title">{{ title }}</p>
         <p class="todo-description">{{ description }}</p>
-        <p class="todo-status">{{ status }}</p>
-        <p class="todo-date">{{ formattedDate }}</p>
+        <div class="todoFooter">
+            <p class="todo-date">{{ formattedDate }}</p>
+            <p class="todo-status" :style="{ color: statusColor }">{{ status }}</p>
+        </div>
         <button @click="deleteTodo">X</button>
     </div>
 </template>
@@ -29,6 +31,17 @@ const formattedDate = computed(() => {
     const formatted = new Date(originalDate).toISOString().split('T')[0].split('-').slice(1).join('-');
     return formatted;
 });
+
+
+const statusColor = computed(() => {
+    if (props.status === "Completed") {
+        return "green"; // Set desired color for Completed status
+    } else if (props.status === "In progress") {
+        return "orange"; // Set desired color for In progress status
+    } else {
+        return "blue"; // Set desired color for other statuses
+    }
+});
 </script>
   
 <style scoped>
@@ -38,7 +51,8 @@ const formattedDate = computed(() => {
     border-radius: 8px;
     position: relative;
     border: 1px solid var(--mainColor);
-
+    height: 150px;
+    min-height: 150px;
 }
 
 .todo-title {
@@ -50,11 +64,18 @@ const formattedDate = computed(() => {
 .todo-description {
     font-size: 14px;
     margin-bottom: 8px;
+    height: 55%;
+    overflow: auto;
+}
+
+.todoFooter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .todo-status {
     font-size: 14px;
-    margin-bottom: 8px;
 }
 
 .todo-date {

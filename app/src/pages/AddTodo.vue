@@ -5,17 +5,18 @@
             <input type="text" v-model="title" required>
             <label for="">Description</label>
             <input type="text" v-model="description" required>
-            <label for="">Status</label>
-            <v-select label="Select" v-model="status" :items="['Active', 'In progress', 'Completed']"></v-select>
+
             <label for="">Finish date</label>
             <input type="date" v-model="date" required>
-            <div>
+            <div class="checkboxLabelsDiv">
                 <label for="">Labels (choose or create)</label>
                 <input type="checkbox" @change="isNewLabel = !isNewLabel">
             </div>
             <v-select label="Select" v-if="!isNewLabel" v-model="label" :items="labelNames">
             </v-select>
             <input type="text" v-else placeholder="Write new label" v-model="label">
+            <label for="">Status</label>
+            <v-select label="Select" v-model="status" :items="['Active', 'In progress', 'Completed']"></v-select>
             <button @click.prevent="addTodoDef">Add</button>
 
         </form>
@@ -26,7 +27,8 @@
 import { onMounted, ref, computed } from 'vue';
 import { todoService } from '../services/todoService';
 import { useToast } from 'vue-toast-notification';
-import  router  from '../router/router'
+import router from '../router/router';
+
 const $toast = useToast();
 
 const title = ref("")
@@ -89,13 +91,15 @@ form {
 
 label {
     font-weight: bold;
+    font-size: 14px;
 }
 
-input[type="text"],
-input[type="date"] {
+
+input {
     border: 1px solid #ccc;
     border-radius: 8px;
-    padding: 6px;
+    padding: 4px;
+    margin-bottom: 12px;
 }
 
 button {
@@ -105,5 +109,13 @@ button {
     border: none;
     border-radius: 8px;
     cursor: pointer;
+}
+
+
+.checkboxLabelsDiv {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
 }
 </style>

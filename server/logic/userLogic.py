@@ -7,9 +7,8 @@ def registerFunction(username, email, password, connection):
     checkIfEmailIsTaken = "SELECT * FROM users WHERE email = %s"
     cursor.execute(checkIfEmailIsTaken, (email,))
     result = cursor.fetchall()
-    print(result)  # Print the emailQuery result
 
-    if result:  # Check if result is not empty (user already registered)
+    if result:
         return {"error": "User already registered with this email."}
 
     query = "INSERT INTO users (username, email, password) VALUES (%s, %s, %s)"

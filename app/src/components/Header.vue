@@ -6,7 +6,7 @@
                 Home
             </router-link>
             <router-link to="/addTodo" v-if="isLogged">
-                <!-- <img :src=Add alt=""> -->
+                <!-- <img :src=Home alt=""> -->
                 Add
             </router-link>
         </div>
@@ -16,6 +16,7 @@
         </div>
         <div class="authBtns" v-else>
             <Menu />
+            <!-- <SideMenu /> -->
         </div>
     </div>
 </template>
@@ -23,12 +24,8 @@
 <script setup>
 import store from '../app/store';
 import Menu from './Menu.vue';
-import Home from '../assets/Home.png'
-import Add from '../assets/Add.png'
-
+import SideMenu from './SideMenu.vue';
 const isLogged = store.getters.getIsLogged
-const username = store.getters.getUsername;
-console.log(username)
 
 </script>
 
@@ -43,22 +40,23 @@ console.log(username)
     padding: 0 50px;
 }
 
-.title{
+.title {
     display: flex;
     gap: 10px;
     justify-content: center;
     align-items: center;
 }
+
 .authBtns {
     display: flex;
     gap: 20px;
 }
 
-.title img{
-    width:  30px;
+.title img {
+    width: 30px;
 }
 
-a{
+a {
     display: flex;
     justify-content: center;
     align-items: center;
